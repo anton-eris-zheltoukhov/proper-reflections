@@ -21,7 +21,7 @@ export default function define(runtime, observer) {
   const svg = d3.create("svg")
       .attr("viewBox", [-outerRadius, -outerRadius, width, width])
       .attr("font-family", "sans-serif")
-      .attr("font-size", 10);
+      .attr("font-size", 10); 
 
   
 
@@ -73,9 +73,14 @@ export default function define(runtime, observer) {
       .on("mouseover", mouseovered(true))
       .on("mouseout", mouseovered(false));
   
+  svg.select("g")
+      .transition()
+      .duration(2500)
+      .attr('transform' , rotate(-180))
+
   svg.append("g")
       .call(legend);
-      
+
   function update(checked) {
     const t = d3.transition().duration(750);
     linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionConstant);
