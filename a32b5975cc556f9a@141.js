@@ -5,21 +5,7 @@ export default function define(runtime, observer) {
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(md`# Reflections`)});
   
-  main.variable(observer("viewof showLength")).define("viewof showLength", ["html"], function(html)
-  {
-    const form = html`<form style="font: 12px var(--sans-serif); display: flex; flex-direction: column; justify-content: center; min-height: 33px;"><label style="display: flex; align-items: center;"><input type=checkbox name=i><span style="margin-left: 0.5em;">Show branch length</span>`;
-    const timeout = setTimeout(() => {
-      form.i.checked = true;
-      form.i.onclick();
-    }, 2000);
-    form.i.onclick = () => {
-      clearTimeout(timeout);
-      form.value = form.i.checked;
-      form.dispatchEvent(new CustomEvent("input"));
-    };
-    form.value = false;
-    return form;
-  });
+
   
   main.variable(observer("showLength")).define("showLength", ["Generators", "viewof showLength"], (G, _) => G.input(_));
   main.variable(observer("chart")).define("chart", ["d3","data","cluster","setRadius","innerRadius","maxLength","setColor","outerRadius","width","legend","linkExtensionConstant","linkConstant","linkExtensionVariable","linkVariable"], function(d3,data,cluster,setRadius,innerRadius,maxLength,setColor,outerRadius,width,legend,linkExtensionConstant,linkConstant,linkExtensionVariable,linkVariable)
@@ -109,6 +95,23 @@ export default function define(runtime, observer) {
   main.variable(observer()).define(["chart","showLength"], function(chart,showLength){return(
   chart.update(showLength)
   )});
+
+  main.variable(observer("viewof showLength")).define("viewof showLength", ["html"], function(html)
+  {
+    const form = html`<form style="font: 12px var(--sans-serif); display: flex; flex-direction: column; justify-content: center; min-height: 33px;"><label style="display: flex; align-items: center;"><input type=checkbox name=i><span style="margin-left: 0.5em;">Show branch length</span>`;
+    const timeout = setTimeout(() => {
+      form.i.checked = true;
+      form.i.onclick();
+    }, 2000);
+    form.i.onclick = () => {
+      clearTimeout(timeout);
+      form.value = form.i.checked;
+      form.dispatchEvent(new CustomEvent("input"));
+    };
+    form.value = false;
+    return form;
+  });
+
   main.variable(observer("cluster")).define("cluster", ["d3","innerRadius"], function(d3,innerRadius){return(
   d3.cluster()
     .size([360, innerRadius])
