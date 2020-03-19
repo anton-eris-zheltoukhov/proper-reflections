@@ -1,12 +1,15 @@
 
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["life.txt",new URL("https://anton-eris-zheltoukhov.github.io/reflections/life.txt",import.meta.url)]]);
+  
+  const fileAttachments = new Map(
+    [["life.txt",new URL("https://anton-eris-zheltoukhov.github.io/reflections/life.txt",import.meta.url)]]
+  );
+  
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   
-
-  
   main.variable(observer("showLength")).define("showLength", ["Generators", "viewof showLength"], (G, _) => G.input(_));
+
   main.variable(observer("chart")).define("chart", ["d3","data","cluster","setRadius","innerRadius","maxLength","setColor","outerRadius","width","legend","linkExtensionConstant","linkConstant","linkExtensionVariable","linkVariable"], function(d3,data,cluster,setRadius,innerRadius,maxLength,setColor,outerRadius,width,legend,linkExtensionConstant,linkConstant,linkExtensionVariable,linkVariable)
   {
   const root = d3.hierarchy(data, d => d.branchset)
@@ -19,8 +22,10 @@ export default function define(runtime, observer) {
 
   const svg = d3.create("svg")
       .attr("viewBox", [-outerRadius, -outerRadius, width, width])
+      .classed('viewBox',true)
       .attr("font-family", "sans-serif")
       .attr("font-size", 10);
+      
 
   svg.append("g")
       .call(legend);
@@ -83,11 +88,16 @@ export default function define(runtime, observer) {
     return function(d) {
       d3.select(this).classed("label--active", active);
       d3.select(d.linkExtensionNode).classed("link-extension--active", active).raise();
+
+      d3.select("viewBox")
+        .transition()
+        .duration(2500)
+        .attr('transform' , 'rotate(-180, '+triangle_cx+',' +triangle_cy +') ')
+
       do d3.select(d.linkNode).classed("link--active", active).raise();
       while (d = d.parent);
     };
   }
-
 
   return Object.assign(svg.node(), {update});
   }
