@@ -77,15 +77,20 @@ export default function define(runtime, observer) {
       .text(d => d.data.name.replace(/_/g, " "))
       .on("mouseover", mouseovered(true))
       .on("mouseout", mouseovered(false))
-      .on("click", clicked);
+      .on("click", clicked());
 
   function clicked() {
-    console.log("clicked")
-    
-    d3.select(".viewBox")
-    .transition()
-    .duration(2500)
-    .attr('transform' , 'rotate(90, 0, 0)');
+    let rotated_times = 1
+    return function() {
+      console.log("clicked")
+
+      d3.select(".viewBox")
+      .transition()
+      .duration(2500)
+      .attr('transform' , 'rotate(' + 10*rotated_times + ', 0, 0)');
+      
+      rotated_times += 1
+    }
   }
 
   function update(checked) {
