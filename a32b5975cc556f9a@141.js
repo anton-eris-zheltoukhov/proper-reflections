@@ -87,17 +87,7 @@ export default function define(runtime, observer) {
     link.transition(t).attr("d", checked ? linkVariable : linkConstant);
   }
 
-function animateTriangle(){
-    svg.select("g")
-        .transition()
-        .duration(2500)
-        .attr('transform' , rotate(-180))
-        
-        .transition() //And rotate back again
-        .duration(2500)
-        .attr('transform' , rotate(-180))        
-        .on("end", animateTriangle) ;  //at end, call it again to create infinite loop
-}
+
 
   function mouseovered(active) {
     return function(d) {
@@ -228,6 +218,18 @@ function animateTriangle(){
   main.variable(observer("d3")).define("d3", ["require"], function(require){return(
   require("d3@5")
   )});
+
+  function animateTriangle(){
+    svg.select("g")
+        .transition()
+        .duration(2500)
+        .attr('transform' , rotate(-180))
+        
+        .transition() //And rotate back again
+        .duration(2500)
+        .attr('transform' , rotate(-180))        
+        .on("end", animateTriangle) ;  //at end, call it again to create infinite loop
+}
 
   animateTriangle()
 
