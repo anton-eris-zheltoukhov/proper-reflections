@@ -82,18 +82,17 @@ export default function define(runtime, observer) {
     const t = d3.transition().duration(750);
     linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionConstant);
     link.transition(t).attr("d", checked ? linkVariable : linkConstant);
+
+    d3.select(".viewBox")
+    .transition()
+    .duration(2500)
+    .attr('transform' , 'rotate(90, 0, 0)');
   }
 
   function mouseovered(active) {
     return function(d) {
       d3.select(this).classed("label--active", active);
       d3.select(d.linkExtensionNode).classed("link-extension--active", active).raise();
-
-      d3.select(".viewBox")
-        .transition()
-        .duration(2500)
-        .attr('transform' , 'rotate(-180, 0, 0) ');
-
       do d3.select(d.linkNode).classed("link--active", active).raise();
       while (d = d.parent);
     };
