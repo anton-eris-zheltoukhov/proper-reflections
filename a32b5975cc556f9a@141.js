@@ -1,7 +1,7 @@
 // https://observablehq.com/d/a32b5975cc556f9a@141
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["life.txt",new URL("./files/818ec1334688a0bd315222228552b87133fafe8dd3cd130a2a919d7ddec2d7c6ca00d5ae74243773a907fa62bc19082c9c985c9d6e55b95d5a340991852d92a7",import.meta.url)]]);
+  const fileAttachments = new Map([["life.txt",new URL("./life.txt",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Tree of Life
