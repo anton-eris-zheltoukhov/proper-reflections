@@ -3,7 +3,6 @@ export default function define(runtime, observer) {
   const main = runtime.module();
   const fileAttachments = new Map([["life.txt",new URL("https://anton-eris-zheltoukhov.github.io/reflections/life.txt",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
-  main.variable(observer()).define(["md"], function(md){return(md`# Reflections`)});
   
 
   
