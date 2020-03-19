@@ -80,6 +80,8 @@ export default function define(runtime, observer) {
       .on("click", clicked);
 
   function clicked() {
+    console.log("clicked")
+    
     d3.select(".viewBox")
     .transition()
     .duration(2500)
