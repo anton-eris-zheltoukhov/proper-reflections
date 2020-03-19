@@ -1,14 +1,10 @@
-// https://observablehq.com/d/a32b5975cc556f9a@141
 export default function define(runtime, observer) {
   const main = runtime.module();
   const fileAttachments = new Map([["life.txt",new URL("https://anton-eris-zheltoukhov.github.io/reflections/life.txt",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
-  main.variable(observer()).define(["md"], function(md){return(
-md`# Tree of Life
+  main.variable(observer()).define(["md"], function(md){return(md`# Reflections`)});
 
-A phylogenetic tree inspired by [a figure from *Nature*](https://www.nature.com/articles/nature08656/figures/1) and [Jason Davies](https://www.jasondavies.com/tree-of-life/).`
-)});
-  main.variable(observer("viewof showLength")).define("viewof showLength", ["html"], function(html)
+main.variable(observer("viewof showLength")).define("viewof showLength", ["html"], function(html)
 {
   const form = html`<form style="font: 12px var(--sans-serif); display: flex; flex-direction: column; justify-content: center; min-height: 33px;"><label style="display: flex; align-items: center;"><input type=checkbox name=i><span style="margin-left: 0.5em;">Show branch length</span>`;
   const timeout = setTimeout(() => {
@@ -22,10 +18,10 @@ A phylogenetic tree inspired by [a figure from *Nature*](https://www.nature.com/
   };
   form.value = false;
   return form;
-}
-);
-  main.variable(observer("showLength")).define("showLength", ["Generators", "viewof showLength"], (G, _) => G.input(_));
-  main.variable(observer("chart")).define("chart", ["d3","data","cluster","setRadius","innerRadius","maxLength","setColor","outerRadius","width","legend","linkExtensionConstant","linkConstant","linkExtensionVariable","linkVariable"], function(d3,data,cluster,setRadius,innerRadius,maxLength,setColor,outerRadius,width,legend,linkExtensionConstant,linkConstant,linkExtensionVariable,linkVariable)
+});
+
+main.variable(observer("showLength")).define("showLength", ["Generators", "viewof showLength"], (G, _) => G.input(_));
+main.variable(observer("chart")).define("chart", ["d3","data","cluster","setRadius","innerRadius","maxLength","setColor","outerRadius","width","legend","linkExtensionConstant","linkConstant","linkExtensionVariable","linkVariable"], function(d3,data,cluster,setRadius,innerRadius,maxLength,setColor,outerRadius,width,legend,linkExtensionConstant,linkConstant,linkExtensionVariable,linkVariable)
 {
   const root = d3.hierarchy(data, d => d.branchset)
       .sum(d => d.branchset ? 0 : 1)
@@ -109,105 +105,107 @@ A phylogenetic tree inspired by [a figure from *Nature*](https://www.nature.com/
   return Object.assign(svg.node(), {update});
 }
 );
-  main.variable(observer()).define(["chart","showLength"], function(chart,showLength){return(
-chart.update(showLength)
-)});
-  main.variable(observer("cluster")).define("cluster", ["d3","innerRadius"], function(d3,innerRadius){return(
-d3.cluster()
-    .size([360, innerRadius])
-    .separation((a, b) => 1)
-)});
-  main.variable(observer("color")).define("color", ["d3"], function(d3){return(
-d3.scaleOrdinal()
-    .domain(["Bacteria", "Eukaryota", "Archaea"])
-    .range(d3.schemeCategory10)
-)});
-  main.variable(observer("maxLength")).define("maxLength", ["d3"], function(d3){return(
-function maxLength(d) {
-  return d.data.length + (d.children ? d3.max(d.children, maxLength) : 0);
-}
-)});
-  main.variable(observer("setRadius")).define("setRadius", function(){return(
-function setRadius(d, y0, k) {
-  d.radius = (y0 += d.data.length) * k;
-  if (d.children) d.children.forEach(d => setRadius(d, y0, k));
-}
-)});
-  main.variable(observer("setColor")).define("setColor", ["color"], function(color){return(
-function setColor(d) {
-  var name = d.data.name;
-  d.color = color.domain().indexOf(name) >= 0 ? color(name) : d.parent ? d.parent.color : null;
-  if (d.children) d.children.forEach(setColor);
-}
-)});
-  main.variable(observer("linkVariable")).define("linkVariable", ["linkStep"], function(linkStep){return(
-function linkVariable(d) {
-  return linkStep(d.source.x, d.source.radius, d.target.x, d.target.radius);
-}
-)});
-  main.variable(observer("linkConstant")).define("linkConstant", ["linkStep"], function(linkStep){return(
-function linkConstant(d) {
-  return linkStep(d.source.x, d.source.y, d.target.x, d.target.y);
-}
-)});
-  main.variable(observer("linkExtensionVariable")).define("linkExtensionVariable", ["linkStep","innerRadius"], function(linkStep,innerRadius){return(
-function linkExtensionVariable(d) {
-  return linkStep(d.target.x, d.target.radius, d.target.x, innerRadius);
-}
-)});
-  main.variable(observer("linkExtensionConstant")).define("linkExtensionConstant", ["linkStep","innerRadius"], function(linkStep,innerRadius){return(
-function linkExtensionConstant(d) {
-  return linkStep(d.target.x, d.target.y, d.target.x, innerRadius);
-}
-)});
-  main.variable(observer("linkStep")).define("linkStep", function(){return(
-function linkStep(startAngle, startRadius, endAngle, endRadius) {
-  const c0 = Math.cos(startAngle = (startAngle - 90) / 180 * Math.PI);
-  const s0 = Math.sin(startAngle);
-  const c1 = Math.cos(endAngle = (endAngle - 90) / 180 * Math.PI);
-  const s1 = Math.sin(endAngle);
-  return "M" + startRadius * c0 + "," + startRadius * s0
-      + (endAngle === startAngle ? "" : "A" + startRadius + "," + startRadius + " 0 0 " + (endAngle > startAngle ? 1 : 0) + " " + startRadius * c1 + "," + startRadius * s1)
-      + "L" + endRadius * c1 + "," + endRadius * s1;
-}
-)});
-  main.variable(observer("legend")).define("legend", ["color","outerRadius"], function(color,outerRadius){return(
-svg => {
-  const g = svg
-    .selectAll("g")
-    .data(color.domain())
-    .join("g")
-      .attr("transform", (d, i) => `translate(${-outerRadius},${-outerRadius + i * 20})`);
 
-  g.append("rect")
-      .attr("width", 18)
-      .attr("height", 18)
-      .attr("fill", color);
+//  main.variable(observer()).define(["chart","showLength"], function(chart,showLength){return(
+// chart.update(showLength)
+// )});
+//   main.variable(observer("cluster")).define("cluster", ["d3","innerRadius"], function(d3,innerRadius){return(
+// d3.cluster()
+//     .size([360, innerRadius])
+//     .separation((a, b) => 1)
+// )});
+//   main.variable(observer("color")).define("color", ["d3"], function(d3){return(
+// d3.scaleOrdinal()
+//     .domain(["Bacteria", "Eukaryota", "Archaea"])
+//     .range(d3.schemeCategory10)
+// )});
+//   main.variable(observer("maxLength")).define("maxLength", ["d3"], function(d3){return(
+// function maxLength(d) {
+//   return d.data.length + (d.children ? d3.max(d.children, maxLength) : 0);
+// }
+// )});
+//   main.variable(observer("setRadius")).define("setRadius", function(){return(
+// function setRadius(d, y0, k) {
+//   d.radius = (y0 += d.data.length) * k;
+//   if (d.children) d.children.forEach(d => setRadius(d, y0, k));
+// }
+// )});
+//   main.variable(observer("setColor")).define("setColor", ["color"], function(color){return(
+// function setColor(d) {
+//   var name = d.data.name;
+//   d.color = color.domain().indexOf(name) >= 0 ? color(name) : d.parent ? d.parent.color : null;
+//   if (d.children) d.children.forEach(setColor);
+// }
+// )});
+//   main.variable(observer("linkVariable")).define("linkVariable", ["linkStep"], function(linkStep){return(
+// function linkVariable(d) {
+//   return linkStep(d.source.x, d.source.radius, d.target.x, d.target.radius);
+// }
+// )});
+//   main.variable(observer("linkConstant")).define("linkConstant", ["linkStep"], function(linkStep){return(
+// function linkConstant(d) {
+//   return linkStep(d.source.x, d.source.y, d.target.x, d.target.y);
+// }
+// )});
+//   main.variable(observer("linkExtensionVariable")).define("linkExtensionVariable", ["linkStep","innerRadius"], function(linkStep,innerRadius){return(
+// function linkExtensionVariable(d) {
+//   return linkStep(d.target.x, d.target.radius, d.target.x, innerRadius);
+// }
+// )});
+//   main.variable(observer("linkExtensionConstant")).define("linkExtensionConstant", ["linkStep","innerRadius"], function(linkStep,innerRadius){return(
+// function linkExtensionConstant(d) {
+//   return linkStep(d.target.x, d.target.y, d.target.x, innerRadius);
+// }
+// )});
+//   main.variable(observer("linkStep")).define("linkStep", function(){return(
+// function linkStep(startAngle, startRadius, endAngle, endRadius) {
+//   const c0 = Math.cos(startAngle = (startAngle - 90) / 180 * Math.PI);
+//   const s0 = Math.sin(startAngle);
+//   const c1 = Math.cos(endAngle = (endAngle - 90) / 180 * Math.PI);
+//   const s1 = Math.sin(endAngle);
+//   return "M" + startRadius * c0 + "," + startRadius * s0
+//       + (endAngle === startAngle ? "" : "A" + startRadius + "," + startRadius + " 0 0 " + (endAngle > startAngle ? 1 : 0) + " " + startRadius * c1 + "," + startRadius * s1)
+//       + "L" + endRadius * c1 + "," + endRadius * s1;
+// }
+// )});
+//   main.variable(observer("legend")).define("legend", ["color","outerRadius"], function(color,outerRadius){return(
+// svg => {
+//   const g = svg
+//     .selectAll("g")
+//     .data(color.domain())
+//     .join("g")
+//       .attr("transform", (d, i) => `translate(${-outerRadius},${-outerRadius + i * 20})`);
 
-  g.append("text")
-      .attr("x", 24)
-      .attr("y", 9)
-      .attr("dy", "0.35em")
-      .text(d => d);
-}
-)});
-  main.variable(observer("data")).define("data", ["parseNewick","FileAttachment"], async function(parseNewick,FileAttachment){return(
-parseNewick(await FileAttachment("life.txt").text())
-)});
-  main.variable(observer("width")).define("width", function(){return(
-954
-)});
-  main.variable(observer("outerRadius")).define("outerRadius", ["width"], function(width){return(
-width / 2
-)});
-  main.variable(observer("innerRadius")).define("innerRadius", ["outerRadius"], function(outerRadius){return(
-outerRadius - 170
-)});
-  main.variable(observer("parseNewick")).define("parseNewick", function(){return(
-function parseNewick(a){for(var e=[],r={},s=a.split(/\s*(;|\(|\)|,|:)\s*/),t=0;t<s.length;t++){var n=s[t];switch(n){case"(":var c={};r.branchset=[c],e.push(r),r=c;break;case",":var c={};e[e.length-1].branchset.push(c),r=c;break;case")":r=e.pop();break;case":":break;default:var h=s[t-1];")"==h||"("==h||","==h?r.name=n:":"==h&&(r.length=parseFloat(n))}}return r}
-)});
-  main.variable(observer("d3")).define("d3", ["require"], function(require){return(
-require("d3@5")
-)});
+//   g.append("rect")
+//       .attr("width", 18)
+//       .attr("height", 18)
+//       .attr("fill", color);
+
+//   g.append("text")
+//       .attr("x", 24)
+//       .attr("y", 9)
+//       .attr("dy", "0.35em")
+//       .text(d => d);
+// }
+// )});
+//   main.variable(observer("data")).define("data", ["parseNewick","FileAttachment"], async function(parseNewick,FileAttachment){return(
+// parseNewick(await FileAttachment("life.txt").text())
+// )});
+//   main.variable(observer("width")).define("width", function(){return(
+// 954
+// )});
+//   main.variable(observer("outerRadius")).define("outerRadius", ["width"], function(width){return(
+// width / 2
+// )});
+//   main.variable(observer("innerRadius")).define("innerRadius", ["outerRadius"], function(outerRadius){return(
+// outerRadius - 170
+// )});
+//   main.variable(observer("parseNewick")).define("parseNewick", function(){return(
+// function parseNewick(a){for(var e=[],r={},s=a.split(/\s*(;|\(|\)|,|:)\s*/),t=0;t<s.length;t++){var n=s[t];switch(n){case"(":var c={};r.branchset=[c],e.push(r),r=c;break;case",":var c={};e[e.length-1].branchset.push(c),r=c;break;case")":r=e.pop();break;case":":break;default:var h=s[t-1];")"==h||"("==h||","==h?r.name=n:":"==h&&(r.length=parseFloat(n))}}return r}
+// )});
+//   main.variable(observer("d3")).define("d3", ["require"], function(require){return(
+// require("d3@5")
+// )});
+
   return main;
 }
