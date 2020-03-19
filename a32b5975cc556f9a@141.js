@@ -89,10 +89,10 @@ export default function define(runtime, observer) {
       d3.select(this).classed("label--active", active);
       d3.select(d.linkExtensionNode).classed("link-extension--active", active).raise();
 
-      d3.select("viewBox")
+      d3.select(".viewBox")
         .transition()
         .duration(2500)
-        .attr('transform' , 'rotate(-180, 60, 140) ');
+        .attr('transform' , 'rotate(-180, 0, 0) ');
 
       do d3.select(d.linkNode).classed("link--active", active).raise();
       while (d = d.parent);
