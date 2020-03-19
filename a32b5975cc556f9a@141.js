@@ -7,7 +7,6 @@ export default function define(runtime, observer) {
 
   
   main.variable(observer("showLength")).define("showLength", ["Generators", "viewof showLength"], (G, _) => G.input(_));
-  
   main.variable(observer("chart")).define("chart", ["d3","data","cluster","setRadius","innerRadius","maxLength","setColor","outerRadius","width","legend","linkExtensionConstant","linkConstant","linkExtensionVariable","linkVariable"], function(d3,data,cluster,setRadius,innerRadius,maxLength,setColor,outerRadius,width,legend,linkExtensionConstant,linkConstant,linkExtensionVariable,linkVariable)
   {
   const root = d3.hierarchy(data, d => d.branchset)
@@ -23,7 +22,8 @@ export default function define(runtime, observer) {
       .attr("font-family", "sans-serif")
       .attr("font-size", 10);
 
-  
+  svg.append("g")
+      .call(legend);
 
   svg.append("style").text(`
 
@@ -72,10 +72,7 @@ export default function define(runtime, observer) {
       .text(d => d.data.name.replace(/_/g, " "))
       .on("mouseover", mouseovered(true))
       .on("mouseout", mouseovered(false));
-  
-  svg.append("g")
-      .call(legend);
-      
+
   function update(checked) {
     const t = d3.transition().duration(750);
     linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionConstant);
