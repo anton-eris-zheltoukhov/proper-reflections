@@ -1,0 +1,14 @@
+{
+  "name": "a32b5975cc556f9a",
+  "main": "a32b5975cc556f9a@141.js",
+  "version": "141.0.0",
+  "homepage": "https://observablehq.com/d/a32b5975cc556f9a",
+  "author": {
+    "name": "anton-eris-zheltoukhov",
+    "url": "https://observablehq.com/@anton-eris-zheltoukhov"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4"
+  }
+}
