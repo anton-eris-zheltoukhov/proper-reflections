@@ -99,15 +99,16 @@ export default function define(runtime, observer) {
   }
 
   function animateTriangle(){
-    svg.select("g")
-        .transition()
-        .duration(2500)
-        .attr('transform' , rotate(-180))
+    console.log("animateTriangle")
+    // svg.select("g")
+    //     .transition()
+    //     .duration(2500)
+    //     .attr('transform' , rotate(-180))
         
-        .transition() //And rotate back again
-        .duration(2500)
-        .attr('transform' , rotate(-180))        
-        .on("end", animateTriangle) ;  //at end, call it again to create infinite loop
+    //     .transition() //And rotate back again
+    //     .duration(2500)
+    //     .attr('transform' , rotate(-180))        
+    //     .on("end", animateTriangle) ;  //at end, call it again to create infinite loop
 }
 
   animateTriangle()
