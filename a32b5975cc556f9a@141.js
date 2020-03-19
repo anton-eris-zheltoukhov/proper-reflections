@@ -92,7 +92,7 @@ export default function define(runtime, observer) {
       d3.select("viewBox")
         .transition()
         .duration(2500)
-        .attr('transform' , 'rotate(-180, '+triangle_cx+',' +triangle_cy +') ')
+        .attr('transform' , 'rotate(-180, 60, 140) ');
 
       do d3.select(d.linkNode).classed("link--active", active).raise();
       while (d = d.parent);
