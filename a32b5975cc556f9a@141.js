@@ -76,17 +76,20 @@ export default function define(runtime, observer) {
       .attr("text-anchor", d => d.x < 180 ? "start" : "end")
       .text(d => d.data.name.replace(/_/g, " "))
       .on("mouseover", mouseovered(true))
-      .on("mouseout", mouseovered(false));
+      .on("mouseout", mouseovered(false))
+      .on("click", clicked);
+
+  function clicked() {
+    d3.select(".viewBox")
+    .transition()
+    .duration(2500)
+    .attr('transform' , 'rotate(90, 0, 0)');
+  }
 
   function update(checked) {
     const t = d3.transition().duration(750);
     linkExtension.transition(t).attr("d", checked ? linkExtensionVariable : linkExtensionConstant);
     link.transition(t).attr("d", checked ? linkVariable : linkConstant);
-
-    d3.select(".viewBox")
-    .transition()
-    .duration(2500)
-    .attr('transform' , 'rotate(90, 0, 0)');
   }
 
   function mouseovered(active) {
