@@ -72,7 +72,7 @@ export default function define(runtime, observer) {
     .data(root.leaves())
     .join("text")
       .attr("dy", ".31em")
-      .attr("transform", d => `rotate(${d.x - 90}) translate(${innerRadius + 4},0)${d.x < 180 ? "" : " rotate(180)"}`)
+      .attr("transform", d => `rotate(${d.x - 90}) translate(${innerRadius + 4},0)`) //translate(${innerRadius + 4},0)${d.x < 180 ? "" : " rotate(180)"}
       .attr("text-anchor", d => d.x < 180 ? "start" : "end")
       .text(d => d.data.name.replace(/_/g, " "))
       .on("mouseover", mouseovered(true))
