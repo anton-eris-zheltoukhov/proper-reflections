@@ -151,10 +151,9 @@ export default function define(runtime, observer) {
     .separation((a, b) => 1)
   )});
   main.variable(observer("color")).define("color", ["d3"], function(d3){return(
-    1
-    // d3.scaleOrdinal()
-    //   .domain(["Bacteria", "Eukaryota", "Archaea"])
-    //   .range(d3.schemeCategory10)
+    d3.scaleOrdinal()
+      .domain(["Bacteria", "Eukaryota", "Archaea"])
+      .range(d3.schemeCategory10)
   )});
   main.variable(observer("maxLength")).define("maxLength", ["d3"], function(d3){return(
   function maxLength(d) {
