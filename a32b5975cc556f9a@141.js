@@ -84,7 +84,10 @@ export default function define(runtime, observer) {
     return function() {
       let transform = parseTransform(this.getAttribute("transform"))
       let elems = document.getElementsByClassName("observablehq")
-      let currentViewBoxCoords = elems[0].getAttribute("viewbox")
+      let currentViewBoxCoords = elems[1].getAttribute("viewbox")
+      let coordsArray = currentViewBoxCoords.split(',');
+          coordsArray[0] *= 1.25;
+      let newViewBoxCoords = coordsArray.join(",");
       
       console.log(elems)
       console.log(currentViewBoxCoords)
@@ -93,9 +96,8 @@ export default function define(runtime, observer) {
       .transition()
       .duration(1500)
       .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
-      .attr('viewbox' , 'rotate(' + -transform.rotate + ', 0, 0)');
+      .attr('viewbox' , newViewBoxCoords);
 
-      
       rotated_times += 1
     }
   }
