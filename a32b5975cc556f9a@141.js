@@ -208,20 +208,20 @@ export default function define(runtime, observer) {
   svg => {
   const g = svg
     .selectAll("g")
-    .data(color.domain())
-    .join("g")
-      .attr("transform", (d, i) => `translate(${-outerRadius},${-outerRadius + i * 20})`);
+  //   .data(color.domain())
+  //   .join("g")
+  //     .attr("transform", (d, i) => `translate(${-outerRadius},${-outerRadius + i * 20})`);
 
-  g.append("rect")
-      .attr("width", 18)
-      .attr("height", 18)
-      .attr("fill", color);
+  // g.append("rect")
+  //     .attr("width", 18)
+  //     .attr("height", 18)
+  //     .attr("fill", color);
 
-  g.append("text")
-      .attr("x", 24)
-      .attr("y", 9)
-      .attr("dy", "0.35em")
-      .text(d => d);
+  // g.append("text")
+  //     .attr("x", 24)
+  //     .attr("y", 9)
+  //     .attr("dy", "0.35em")
+  //     .text(d => d);
   }
   )});
   main.variable(observer("data")).define("data", ["parseNewick","FileAttachment"], async function(parseNewick,FileAttachment){return(
