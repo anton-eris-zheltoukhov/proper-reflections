@@ -83,7 +83,10 @@ export default function define(runtime, observer) {
     let rotated_times = 1
     return function() {
       let transform = parseTransform(this.getAttribute("transform"))
-      let currentViewBoxCoords = document.getElementsByClassName("observablehq")[0].getAttribute("viewbox")
+      let elems = document.getElementsByClassName("observablehq")
+      let currentViewBoxCoords = elems[0].getAttribute("viewbox")
+      
+      console.log(elems)
       console.log(currentViewBoxCoords)
 
       d3.select(".viewBox")
