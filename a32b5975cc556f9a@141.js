@@ -83,15 +83,16 @@ export default function define(runtime, observer) {
     let rotated_times = 1
     return function() {
       let transform = parseTransform(this.getAttribute("transform"))
-      let elems = document.getElementsByClassName("observablehq")
-      let currentViewBoxCoords = elems[1].getAttribute("viewbox")
+      let elem = document.getElementsByClassName("observablehq")[1]
+      let currentViewBoxCoords = elem.getAttribute("viewbox")
+
+      console.log(elem)
+      console.log(currentViewBoxCoords)
+      
       let coordsArray = currentViewBoxCoords.split(',');
           coordsArray[0] *= 1.25;
       let newViewBoxCoords = coordsArray.join(",");
       
-      console.log(elems)
-      console.log(currentViewBoxCoords)
-
       d3.select(".viewBox")
       .transition()
       .duration(1500)
