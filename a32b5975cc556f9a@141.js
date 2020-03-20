@@ -82,15 +82,16 @@ export default function define(runtime, observer) {
   function clicked() {
     let rotated_times = 1
     return function() {
-      console.log(this)
-      
       let transform = parseTransform(this.getAttribute("transform"))
-      console.log(transform.rotate)
+      let currentViewBoxCoords = document.getElementsByClassName("observablehq").children[0].getAttribute("viewbox")
+      console.log(currentViewBoxCoords)
 
       d3.select(".viewBox")
       .transition()
       .duration(1500)
-      .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)');
+      .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
+      .attr('viewbox' , 'rotate(' + -transform.rotate + ', 0, 0)');
+
       
       rotated_times += 1
     }
