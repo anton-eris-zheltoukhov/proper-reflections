@@ -90,8 +90,7 @@ export default function define(runtime, observer) {
       console.log(currentViewBoxCoords)
       
       let coordsArray = currentViewBoxCoords.split(',');
-          coordsArray[0] *= 1.25;
-      let newViewBoxCoords = coordsArray.join(",");
+      let shift = coordsArray[0] * 0.25;
       
       d3.select(".viewBox")
       .transition()
@@ -99,7 +98,7 @@ export default function define(runtime, observer) {
       .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
       .transition()
       .duration(500)
-      .attr('viewBox' , newViewBoxCoords);
+      .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)' + ' translate(' + shift + ', 0)');
 
       rotated_times += 1
     }
