@@ -89,7 +89,7 @@ export default function define(runtime, observer) {
 
       d3.select(".viewBox")
       .transition()
-      .duration(750)
+      .duration(1500)
       .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)');
       
       rotated_times += 1
