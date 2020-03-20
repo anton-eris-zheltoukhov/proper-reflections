@@ -82,7 +82,9 @@ export default function define(runtime, observer) {
   function clicked() {
     let rotated_times = 1
     return function() {
-      console.log("clicked")
+      console.log(this)
+      console.log(this.getAttribute("transform"))
+
 
       d3.select(".viewBox")
       .transition()
