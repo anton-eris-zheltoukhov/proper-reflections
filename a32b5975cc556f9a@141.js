@@ -97,6 +97,8 @@ export default function define(runtime, observer) {
       .transition()
       .duration(1500)
       .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
+      .transition()
+      .duration(500)
       .attr('viewBox' , newViewBoxCoords);
 
       rotated_times += 1
