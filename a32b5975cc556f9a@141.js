@@ -96,7 +96,7 @@ export default function define(runtime, observer) {
     }
   }
 
-  function parseTransform(string)
+  function parseTransform(a)
   {
     var b={};
     for (var i in a = a.match(/(\w+\((\-?\d+\.?\d*e?\-?\d*,?)+\))+/g))
