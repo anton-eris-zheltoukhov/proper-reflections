@@ -83,8 +83,9 @@ export default function define(runtime, observer) {
     let rotated_times = 1
     return function() {
       console.log(this)
-      console.log(this.getAttribute("transform"))
-
+      
+      let transform = parseTransform(this.getAttribute("transform"))
+      console.log(transform.rotate)
 
       d3.select(".viewBox")
       .transition()
@@ -93,6 +94,17 @@ export default function define(runtime, observer) {
       
       rotated_times += 1
     }
+  }
+
+  function parseTransform(string)
+  {
+    var b={};
+    for (var i in a = a.match(/(\w+\((\-?\d+\.?\d*e?\-?\d*,?)+\))+/g))
+    {
+        var c = a[i].match(/[\w\.\-]+/g);
+        b[c.shift()] = c;
+    }
+    return b;
   }
 
   function update(checked) {
