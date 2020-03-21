@@ -80,6 +80,7 @@ export default function define(runtime, observer) {
       .on("click", clicked());
 
   function clicked() {
+    console.log("b")
     let rotated_times = 1
 
     let elem = document.getElementsByClassName("observablehq")[1].children[0]
@@ -90,8 +91,11 @@ export default function define(runtime, observer) {
     
     let coordsArray = currentViewBoxCoords.split(',');
     let shift = coordsArray[0] * 0.5;
+    console.log("e")
 
     return function() {
+    console.log("i")
+
       let transform = parseTransform(this.getAttribute("transform"))
 
       let shiftDirection = rotated_times % 2 ? 1 : -1;
