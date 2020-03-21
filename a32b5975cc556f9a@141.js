@@ -90,7 +90,7 @@ export default function define(runtime, observer) {
       console.log(currentViewBoxCoords)
       
       let coordsArray = currentViewBoxCoords.split(',');
-      let shift = coordsArray[0] * 0.25;
+      let shift = coordsArray[0] * 0.5;
       
       let shiftDirection = rotated_times % 2 ? 1 : -1;
 
