@@ -83,20 +83,20 @@ export default function define(runtime, observer) {
     console.log("b")
     let rotated_times = 1
 
-    // console.log(document)
-    // let elem = document.getElementsByClassName("observablehq")
-    // console.log(1)
-    //  elem = document.getElementsByClassName("observablehq")[1]
-    // console.log(1)
-    //  elem = document.getElementsByClassName("observablehq")[1].children[0]
+    console.log(document)
+    let elem = document.getElementsByClassName("observablehq")
+    console.log(1)
+     elem = document.getElementsByClassName("observablehq")[1]
+    console.log(1)
+     elem = document.getElementsByClassName("observablehq")[1].children[0]
 
-    // console.log(elem)
-    // let currentViewBoxCoords = elem.getAttribute("viewBox")
-    // console.log(currentViewBoxCoords)
+    console.log(elem)
+    let currentViewBoxCoords = elem.getAttribute("viewBox")
+    console.log(currentViewBoxCoords)
     
-    // let coordsArray = currentViewBoxCoords.split(',');
-    // let shift = coordsArray[0] * 0.5;
-    // console.log("e")
+    let coordsArray = currentViewBoxCoords.split(',');
+    let shift = coordsArray[0] * 0.5;
+    console.log("e")
 
     return function() {
     console.log("i")
