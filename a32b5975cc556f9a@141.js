@@ -82,17 +82,12 @@ export default function define(runtime, observer) {
   function clicked() {
     let rotated_times = 1;
     let shift = 0;
-    
+
     return function() {
       if (!shift) {
-        let elem = document.getElementsByClassName("viewBox")
-        console.log(elem)
-
-        let currentViewBoxCoords = elem.getAttribute("viewBox")
-        console.log(currentViewBoxCoords)
-        
+        let viewBox = document.getElementsByClassName("viewBox")[0]
+        let currentViewBoxCoords = viewBox.getAttribute("viewBox")
         let coordsArray = currentViewBoxCoords.split(',');
-      
         shift = coordsArray[0] * 0.5;
       }
       
