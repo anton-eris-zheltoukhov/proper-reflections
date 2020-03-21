@@ -93,12 +93,12 @@ export default function define(runtime, observer) {
       let shift = coordsArray[0] * 0.25;
       
       d3.select(".viewBox")
-      .transition()
-      .duration(1500)
-      .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
+      // .transition()
+      // .duration(1500)
+      // .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
       .transition()
       .duration(500)
-      .attr('transform' , 'rotate(' + -transform.rotate + ', 0,  0)' + ' translate(' + shift * Math.cos(transform.rotate) + ', 0)');
+      .attr('transform' , 'rotate(' + -transform.rotate + ', 0,  0)' + ' translate(' + shift + ', 0)');
 
       rotated_times += 1
     }
