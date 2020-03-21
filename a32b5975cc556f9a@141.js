@@ -92,13 +92,15 @@ export default function define(runtime, observer) {
       let coordsArray = currentViewBoxCoords.split(',');
       let shift = coordsArray[0] * 0.25;
       
+      let shiftDirection = rotated_times % 2 ? 1 : -1;
+
       d3.select(".viewBox")
       // .transition()
       // .duration(1500)
       // .attr('transform' , 'rotate(' + -transform.rotate + ', 0, 0)')
       .transition()
       .duration(500)
-      .attr('transform' , 'translate(' + shift + ', 0)');
+      .attr('transform' , 'translate(' + shiftDirection * shift + ', 0)');
 
       rotated_times += 1
     }
