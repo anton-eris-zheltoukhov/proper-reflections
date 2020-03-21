@@ -83,14 +83,9 @@ export default function define(runtime, observer) {
     console.log("b")
     let rotated_times = 1
 
-    console.log(document)
-    let elem1 = document.getElementsByClassName("observablehq")
-    console.log(elem1)
-    let elem2 = document.getElementsByClassName("observablehq")[1]
-    console.log(elem2)
-    let elem = document.getElementsByClassName("observablehq")[1].children[0]
-
+    let elem = document.getElementsByClassName("viewBox")
     console.log(elem)
+
     let currentViewBoxCoords = elem.getAttribute("viewBox")
     console.log(currentViewBoxCoords)
     
