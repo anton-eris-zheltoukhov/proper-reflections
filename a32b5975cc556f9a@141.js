@@ -105,7 +105,7 @@ export default function define(runtime, observer) {
       rotated_times += 1
 
       let contents = document.getElementById("contents")
-          contents.appendChild(document.createTextNode("This is new.");
+          contents.appendChild(document.createTextNode("This is new."))
     }
   }
 
