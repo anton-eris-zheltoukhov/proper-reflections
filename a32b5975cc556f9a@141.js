@@ -84,9 +84,8 @@ export default function define(runtime, observer) {
     let rotated_times = 1
 
     let elem = document.getElementsByClassName("observablehq")[1].children[0]
-    let currentViewBoxCoords = elem.getAttribute("viewBox")
-
     console.log(elem)
+    let currentViewBoxCoords = elem.getAttribute("viewBox")
     console.log(currentViewBoxCoords)
     
     let coordsArray = currentViewBoxCoords.split(',');
