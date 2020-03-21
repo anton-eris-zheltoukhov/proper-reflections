@@ -80,25 +80,24 @@ export default function define(runtime, observer) {
       .on("click", clicked());
 
   function clicked() {
-    console.log("b")
-    let rotated_times = 1
-
-    let elem = document.getElementsByClassName("viewBox")
-    console.log(elem)
-
-    let currentViewBoxCoords = elem.getAttribute("viewBox")
-    console.log(currentViewBoxCoords)
+    let rotated_times = 1;
+    let shift = 0;
     
-    let coordsArray = currentViewBoxCoords.split(',');
-    let shift = coordsArray[0] * 0.5;
-    console.log("e")
-
     return function() {
-    console.log("i")
+      if (!shift) {
+        let elem = document.getElementsByClassName("viewBox")
+        console.log(elem)
 
-      let transform = parseTransform(this.getAttribute("transform"))
-
+        let currentViewBoxCoords = elem.getAttribute("viewBox")
+        console.log(currentViewBoxCoords)
+        
+        let coordsArray = currentViewBoxCoords.split(',');
+      
+        shift = coordsArray[0] * 0.5;
+      }
+      
       let shiftDirection = rotated_times % 2 ? 1 : -1;
+      let transform = parseTransform(this.getAttribute("transform"))
 
       d3.select(".viewBox")
       // .transition()
