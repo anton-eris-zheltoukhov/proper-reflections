@@ -92,7 +92,7 @@ export default function define(runtime, observer) {
         shift = coordsArray[0] * 0.5;
       }
       
-      let shiftDirection = rotated_times % 2 ? 1 : -1;
+      let shiftDirection = rotated_times % 2 ? 1 : 0;
       let transform = parseTransform(this.getAttribute("transform"))
 
       d3.select(".viewBox")
