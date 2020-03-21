@@ -85,6 +85,7 @@ export default function define(runtime, observer) {
 
     return function() {
       if (!shift) {
+        console.log("shift update")
         let viewBox = document.getElementsByClassName("viewBox")[0]
         let currentViewBoxCoords = viewBox.getAttribute("viewBox")
         let coordsArray = currentViewBoxCoords.split(',');
