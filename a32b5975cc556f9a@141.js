@@ -83,6 +83,7 @@ export default function define(runtime, observer) {
     console.log("b")
     let rotated_times = 1
 
+    console.log(document)
     let elem = document.getElementsByClassName("observablehq")
     console.log(1)
      elem = document.getElementsByClassName("observablehq")[1]
