@@ -89,7 +89,7 @@ export default function define(runtime, observer) {
         let viewBox = document.getElementsByClassName("viewBox")[0]
         let currentViewBoxCoords = viewBox.getAttribute("viewBox")
         let coordsArray = currentViewBoxCoords.split(',');
-        shift = coordsArray[0] * 0.5;
+        shift = coordsArray[0] * 0.8;
       }
       
       let shiftDirection = rotated_times % 2 ? 1 : 0;
@@ -105,8 +105,9 @@ export default function define(runtime, observer) {
 
       rotated_times += 1
 
-      let contents = document.getElementById("contents")
-          contents.appendChild(document.createTextNode("This is new."))
+      let contents = document
+        .getElementById("contents")
+        .createTextNode("This is new.")
     }
   }
 
