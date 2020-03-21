@@ -85,9 +85,9 @@ export default function define(runtime, observer) {
 
     let elem = document.getElementsByClassName("observablehq")
     console.log(1)
-    let elem = document.getElementsByClassName("observablehq")[1]
+     elem = document.getElementsByClassName("observablehq")[1]
     console.log(1)
-    let elem = document.getElementsByClassName("observablehq")[1].children[0]
+     elem = document.getElementsByClassName("observablehq")[1].children[0]
 
     console.log(elem)
     let currentViewBoxCoords = elem.getAttribute("viewBox")
