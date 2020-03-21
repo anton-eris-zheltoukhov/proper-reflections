@@ -103,6 +103,9 @@ export default function define(runtime, observer) {
       .attr('transform' , 'translate(' + shiftDirection * shift + ', 0)');
 
       rotated_times += 1
+
+      let contents = document.getElementById("contents")
+          contents.appendChild(document.createTextNode("This is new.");
     }
   }
 
